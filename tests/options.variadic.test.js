@@ -35,6 +35,14 @@ describe('variadic options', () => {
       assert.deepEqual(program.opts().required, ['one', 'two']);
     });
 
+    test('when variadic placeholder uses Unicode then set values in array', () => {
+      const program = new commander.Command();
+      program.option('--tag <值...>');
+
+      program.parse(['--tag', 'one', 'two'], { from: 'user' });
+      assert.deepEqual(program.opts().tag, ['one', 'two']);
+    });
+
     test('when variadic with repeated values then set in array', () => {
       const program = new commander.Command();
       program.option('-r,--required <value...>');
